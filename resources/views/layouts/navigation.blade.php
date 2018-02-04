@@ -30,7 +30,7 @@
                 </div>
             </li>
             {{--  <li class="">  --}}
-            <li class="{{ isActiveRoute('home') }}">
+            <li class="{{ isActiveRoute('Home') }}">
                 <a href="{{ url('/') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Main view</span></a>
             </li>
             <li class="{{ isActiveRoute('minor') }}">

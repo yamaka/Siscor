@@ -15,14 +15,12 @@
 
 
 Auth::routes();
+
 Route::group(['middleware' => 'auth'], function() {
-
-	Route::get('/', function () {
-	    return view('welcome');
-	});
-
-	Route::get('/home', 'HomeController@index')->name('home');
-
+	Route::get('/', 'Home\HomeController@index')->name('Home');
+    //Route::get('/Home', 'HomeController@index')->name('Home');
+	// TODO start with programing go! now
+	//Route::get('/Home', 'HomeController@index')->name('Home');
 });
 
 
