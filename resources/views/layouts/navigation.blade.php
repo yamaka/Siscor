@@ -12,16 +12,16 @@
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
                         <li>
-                        <a href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
+                            <a href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();">
-                            Logout
-                        </a>
+                                Logout
+                            </a>
 
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            {{ csrf_field() }}
-                        </form>
-                    </li>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                        </li>
                         {{--  <li><a href="/logout">Logout</a></li>  --}}
                     </ul>
                 </div>
@@ -30,14 +30,36 @@
                 </div>
             </li>
             {{--  <li class="">  --}}
+            <li class="{{ isActiveRoute('Direction') }}">
+                <a href="{{ url('/') }}"><i class="fa fa-cogs"></i> <span class="nav-label">Admin</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse" style="">
+                    <li class="">
+                        <a href="{{url('/Direction')}}"> Direcciones</a>
+                    </li>
+                    <li>
+                        <a href="dashboard_4_1.html">Unidades</a>
+                    </li>
+                    <li>
+                        <a href="dashboard_5.html">Cargos</a>
+                    </li>
+                    <li>
+                        <a href="dashboard_2.html">Usuarios</a>
+                    </li>
+                </ul>
+            </li>
             <li class="{{ isActiveRoute('Home') }}">
-                <a href="{{ url('/') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Main view</span></a>
+                <a href="{{ url('/') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Principal</span></a>
+            </li>
+            <li class="{{ isActiveRoute('RoadMap') }}">
+                <a href="{{ url('/') }}"><i class="fa fa-list-alt"></i> <span class="nav-label">Hojas de Ruta</span></a>
             </li>
             <li class="{{ isActiveRoute('minor') }}">
-            {{--  <li class="">  --}}
-                <a href="{{ url('/minor') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Minor view</span> </a>
+                {{--  <li class="">  --}}
+                <a href="{{ url('/minor') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Correspondencia</span>
+                </a>
             </li>
         </ul>
 
     </div>
 </nav>
+
