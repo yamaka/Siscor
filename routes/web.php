@@ -18,8 +18,9 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function() {
 	Route::get('/', 'Home\HomeController@index')->name('Home');
-	Route::get('Direction', 'Direction\DirectionController@index')->name('Home');
+//	Route::get('Direction', 'Direction\DirectionController@index')->name('Home');
 
+    Route::resource('Direction', 'Direction\DirectionController');
     //Route::get('/Home', 'HomeController@index')->name('Home');
 	// TODO start with programing go! now
 	//Route::get('/Home', 'HomeController@index')->name('Home');

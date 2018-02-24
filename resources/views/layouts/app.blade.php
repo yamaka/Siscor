@@ -83,9 +83,9 @@
     <link rel="stylesheet" href="{!! asset('css/vendor.css') !!}" />
     <link rel="stylesheet" href="{!! asset('css/app.css') !!}" />
     <link rel="stylesheet" href="{!! asset('css/custom.css') !!}" />    
-</head>        
+    <link rel="stylesheet" href="{!! asset('css/datatables.min.css') !!}" />
+</head>
 <body>
-
   <!-- Wrapper-->
     <div id="wrapper">
 
@@ -113,8 +113,12 @@
 <script src="{!! asset('js/app.js') !!}" type="text/javascript"></script>
 <script src="{!! asset('js/vendor.js') !!}" type="text/javascript"></script>
 <script src="{!! asset('js/custom.js') !!}" type="text/javascript"></script>
+<script src="{!! asset('js/datatables.min.js') !!}" type="text/javascript"></script>
+
+
 
 @section('scripts')
+
 @show
 
 </body>
