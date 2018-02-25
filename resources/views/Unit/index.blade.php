@@ -2,13 +2,13 @@
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-7">
-            <h2>Direccion</h2>
+            <h2>Unidades</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="#">Admin</a>
                 </li>
                 <li class="active">
-                    <strong>Direccion</strong>
+                    <strong>Unidades</strong>
                 </li>
             </ol>
         </div>
@@ -40,7 +40,7 @@
                     <div class="ibox-content" style="">
                         <form class="form-inline" name="filtroForm">
                             <div class="form-group">
-                                <label class="">ID Direccion</label>
+                                <label class="">ID Unidad</label>
                                 <br>
                                 <input type="email" placeholder="Email" class="form-control">
                             </div>
@@ -105,7 +105,7 @@
                                        style="width: 100%;" role="grid">
                                     <thead>
                                     <tr role="row">
-                                        <th>Id Direccion</th>
+                                        <th>Id Unidad</th>
                                         <th>Nombre</th>
                                         <th>Descripción</th>
                                         <th>Accion</th>
@@ -131,7 +131,7 @@
                         <span class="sr-only">Close</span>
                     </button>
                     <i class="fa fa-laptop modal-icon"></i>
-                    <h4 class="modal-title">Dirección</h4>
+                    <h4 class="modal-title">Unidad</h4>
                     <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting
                         industry.
                     </small>
@@ -139,10 +139,9 @@
                 <div class="modal-body">
                     <div class="ibox float-e-margins">
                         <form class="form-horizontal" id="form-direction" onsubmit="return false">
-
                             <input type="hidden" name="id" id="id">
                             <div class="form-group">
-                                <label class="col-lg-2 control-label">Direccion</label>
+                                <label class="col-lg-2 control-label">Nombre</label>
                                 <div class="col-lg-10">
                                     <input type="text" id="name" name="name" placeholder="Nombre de Direccion"
                                            class="form-control">
@@ -174,12 +173,12 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            /********** datatables direction *********/
+            /********** datatables unit *********/
             $.fn.dataTable.ext.errMode = 'throw';
             oTable = $('#DataTables_direction').DataTable({
                 "processing": true,
                 "serverSide": true,
-                "ajax": "{{ route('Direction.index') }}",
+                "ajax": "{{ route('Unit.index') }}",
                 "columns": [
                     {data: 'id', name: 'id'},
                     {data: 'name', name: 'name'},
@@ -189,15 +188,14 @@
                 order: [[0, 'desc']]
             });
 
-            /****************** add direction *****************/
-
+            /****************** add unit *****************/
             $('#options').find('#add-direction').on('click', function () {
                 $('.modal-footer').find('.save').attr('id', 'store-direction');
             });
 
             $(document).on('click', '.modal-footer #store-direction', function () {
                 console.log("to store direction");
-                var url = "{{ url('/') }}" + "/Direction";
+                var url = "{{ url('/') }}" + "/Unit";
                 console.log(url);
                 $.ajax({
                     url: url,
@@ -212,15 +210,16 @@
             });
 
             $('#myModal').on('hidden.bs.modal', function () {
-                $('#form-direction').find('#name').val('');
-                $('#form-direction').find('#description').val('');
-                $('#form-direction').find('#id').val('');
+                var form = $('#form-direction');
+                form.find('#name').val('');
+                form.find('#description').val('');
+                form.find('#id').val('');
             });
 
             $(document).on('click', '.modal-footer #updte', function () {
                 console.log('update');
                 var id = $(".edit").attr("id");
-                var url = "{{ url('/') }}" + "/Direction/" + id;
+                var url = "{{ url('/') }}" + "/Unit/" + id;
                 console.log(url);
                 $.ajax({
                     url: url,
@@ -241,7 +240,7 @@
                 console.log('edit');
                 var id = $(this).attr("id");
                 $('#myModal').modal('show');
-                var url = "{{ url('/') }}" + "/Direction/" + id + '/edit';
+                var url = "{{ url('/') }}" + "/Unit/" + id + '/edit';
                 $('.modal-footer').find('.save').attr('id', 'updte');
                 $.ajax({
                     url: url,
@@ -249,16 +248,17 @@
                     data: {id: id},
                     dataType: 'json',
                     success: function (data) {
-                        $('#form-direction').find('#id').val(data.id);
-                        $('#form-direction').find('#name').val(data.name);
-                        $('#form-direction').find('#description').val(data.description);
+                        var form = $('#form-direction');
+                        form.find('#id').val(data.id);
+                        form.find('#name').val(data.name);
+                        form.find('#description').val(data.description);
                     }
                 });
             });
             $(document).on('click', '.delete', function () {
                 console.log('delete');
                 var id = $(this).attr("id");
-                var url = "{{ url('/') }}" + "/Direction/" + id;
+                var url = "{{ url('/') }}" + "/Unit/" + id;
                 $.ajax({
                     url: url,
                     method: 'delete',

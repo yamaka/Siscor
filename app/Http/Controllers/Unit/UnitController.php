@@ -1,14 +1,13 @@
 <?php
 
-namespace Siscor\Http\Controllers\Direction;
+namespace Siscor\Http\Controllers\Unit;
 
 use Illuminate\Http\Request;
-use Siscor\Direction;
 use Siscor\Http\Controllers\Controller;
-use Symfony\Component\Routing\Route;
+use Siscor\Unit;
 use Yajra\DataTables\DataTables;
 
-class DirectionController extends Controller
+class UnitController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,20 +16,21 @@ class DirectionController extends Controller
      */
     public function index(Request $request)
     {
+
         if ($request->ajax()) {
-            $directions = Direction::select(['id', 'name', 'description'])->get();
-            return $this->getData($directions);
+            $units = Unit::select(['id', 'name', 'description'])->get();
+            return $this->getData( $units);
         }
-        return view('Direction.index');
+        return view('Unit.index');
     }
 
     protected function getData($data)
     {
         return DataTables::of($data)
-            ->addColumn('action', function($direction){
-                return '<a href="#" class="btn btn-xs btn-primary edit" id="'.$direction->id.'">
+            ->addColumn('action', function($unit){
+                return '<a href="#" class="btn btn-xs btn-primary edit" id="'.$unit->id.'">
                             <i class="fa fa-edit"></i> Edit</a>
-                            <a href="#" class="btn btn-xs btn-primary delete" id="'.$direction->id.'">
+                            <a href="#" class="btn btn-xs btn-primary delete" id="'.$unit->id.'">
                             <i class="fa fa-remove"></i> Eliminar</a>';
             })
             ->toJson();
@@ -54,10 +54,10 @@ class DirectionController extends Controller
      */
     public function store(Request $request)
     {
-        $direction = new Direction();
-        $direction->fill($request->toArray());
-        $direction->save();
-        return redirect()->route('Direction.index');
+        $unit = new Unit();
+        $unit->fill($request->toArray());
+        $unit->save();
+        return redirect()->route('Unit.index');
     }
 
     /**
@@ -79,8 +79,8 @@ class DirectionController extends Controller
      */
     public function edit($id)
     {
-        $direction = Direction::findOrFail($id);
-            return response()->json($direction);
+        $unit = Unit::findOrFail($id);
+        return response()->json($unit);
     }
 
     /**
@@ -90,14 +90,12 @@ class DirectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-
-        $direction = Direction::findOrFail($request->id);
-        $direction->fill($request->toArray());
-        $direction->save();
+        $unit = Unit::findOrFail($request->id);
+        $unit->fill($request->toArray());
+        $unit->save();
         return response()->json("succes");
-
     }
 
     /**
@@ -108,7 +106,7 @@ class DirectionController extends Controller
      */
     public function destroy($id)
     {
-        $res = Direction::findOrFail($id)->delete();
+        $res = Unit::findOrFail($id)->delete();
         return response()->json('succes');
     }
 }

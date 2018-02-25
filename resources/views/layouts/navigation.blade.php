@@ -37,7 +37,7 @@
                         <a href="{{url('/Direction')}}"> Direcciones</a>
                     </li>
                     <li>
-                        <a href="dashboard_4_1.html">Unidades</a>
+                        <a href="{{url('/Unit')}}">Unidades</a>
                     </li>
                     <li>
                         <a href="dashboard_5.html">Cargos</a>

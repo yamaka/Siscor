@@ -17,7 +17,7 @@ class Direction extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'attribute3'
+        'name', 'description'
     ];
 
     protected $dates = ['deleted_at'];
