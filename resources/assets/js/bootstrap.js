@@ -9,7 +9,9 @@ window._ = require('lodash');
 
 try {
     window.$ = window.jQuery = require('jquery');
-    
+    // require('select2/dist/js/select2.full');
+    // require('select2/dist/js/select2');
+    require('selectize');
     require('bootstrap-sass');
 } catch (e) {}
 

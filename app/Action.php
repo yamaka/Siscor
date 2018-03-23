@@ -3,12 +3,9 @@
 namespace Siscor;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-
-class Direction extends Model
+class Action extends Model
 {
-
     use SoftDeletes;
 
     /**
@@ -20,10 +17,5 @@ class Direction extends Model
         'name', 'description'
     ];
 
-    protected $dates = ['deleted_at'];
 
-    public function units()
-    {
-        return $this->hasMany('Siscor\Unit');
-    }
 }

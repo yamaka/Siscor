@@ -1,14 +1,14 @@
 <?php
 
-namespace Siscor\Http\Controllers\Unit;
+namespace Siscor\Http\Controllers\Position;
 
 use Illuminate\Http\Request;
-use Siscor\Direction;
 use Siscor\Http\Controllers\Controller;
+use Siscor\Position;
 use Siscor\Unit;
 use Yajra\DataTables\DataTables;
 
-class UnitController extends Controller
+class PositionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,42 +17,35 @@ class UnitController extends Controller
      */
     public function index(Request $request)
     {
-
         if ($request->ajax()) {
-            $units = Unit::select(['id', 'name', 'description'])->get();
-            return $this->getData( $units);
+            $positions = Position::select(['id', 'name', 'description'])->get();
+            return $this->getData( $positions);
         }
-        return view('Unit.index');
+        return view('Position.index');
     }
 
     protected function getData($data)
     {
         return DataTables::of($data)
-            ->addColumn('action', function($unit){
-                return '<a href="#" class="btn btn-xs btn-primary edit" id="'.$unit->id.'">
+            ->addColumn('action', function($position){
+                return '<a href="#" class="btn btn-xs btn-primary edit" id="'.$position->id.'">
                             <i class="fa fa-edit"></i> Edit</a>
-                            <a href="#" class="btn btn-xs btn-primary delete" id="'.$unit->id.'">
+                            <a href="#" class="btn btn-xs btn-primary delete" id="'.$position->id.'">
                             <i class="fa fa-remove"></i> Eliminar</a>';
             })
             ->toJson();
     }
 
-    public function all()
+    public function all(Request $request)
     {
-        $units = Unit::select(['id', 'name', 'description'])->get();
-        $valid_units = [];
-        foreach ($units as $id => $unit) {
-            $valid_units[] = ['id' => $unit->id, 'text' => $unit->name];
+        $positions = Position::unitidIs($request->unit_id)->get();
+        // $positions = Position::select(['id', 'name', 'description'])->get();
+        $valid_positions = [];
+        foreach ($positions as $id => $position) {
+            $valid_positions[] = ['id' => $position->id, 'text' => $position->name];
         }
-        array_unshift($valid_units, "");
-        return response()->json($valid_units);
-    }
-    
-    public function unitsDirection( $idDirection)
-    {
-        $direction = Direction::find($idDirection);
-        $units = $direction->units;
-        return response()->json($units);
+        array_unshift($valid_positions, "");
+        return response()->json($valid_positions);
     }
 
     /**
@@ -73,11 +66,14 @@ class UnitController extends Controller
      */
     public function store(Request $request)
     {
-        $unit = new Unit();
-        $unit->name = $request->name;
-        $unit->description = $request->description;
-        $unit->direction_id = $request->direction;
-        $unit->save();
+
+        $position = new Position();
+        $position->name = $request->name;
+        $position->description = $request->description;
+        $position->unit_id = $request->unit;
+        $direction = Unit::find($request->unit)->Direction->id;
+        $position->direction_id = $direction;
+        $position->save();
         return redirect()->route('Unit.index');
     }
 
@@ -100,7 +96,7 @@ class UnitController extends Controller
      */
     public function edit($id)
     {
-        $unit = Unit::findOrFail($id);
+        $unit = Position::find($id);
         return response()->json($unit);
     }
 
@@ -113,11 +109,16 @@ class UnitController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $unit = Unit::find($request->id);
-        $unit->name = $request->name;
-        $unit->description = $request->description;
-        $unit->direction_id = $request->direction;
-        $unit->save();
+
+
+
+        $position = Position::find($id);
+        $position->name = $request->name;
+        $position->description = $request->description;
+        $position->unit_id = $request->unit;
+        $direction = Unit::find($request->unit)->Direction->id;
+        $position->direction_id = $direction;
+        $position->update();
         return response()->json("succes");
     }
 
@@ -129,7 +130,7 @@ class UnitController extends Controller
      */
     public function destroy($id)
     {
-        $res = Unit::find($id)->delete();
+        $res = Unit::findOrFail($id)->delete();
         return response()->json('succes');
     }
 }

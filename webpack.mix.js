@@ -10,9 +10,16 @@ let mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-
+var paths = {
+    'select2css': 'node_modules/select2/dist/css/select2.css',
+    'selectizecss': 'node_modules/selectize/dist/css/selectize.css',
+};
 mix.js('resources/assets/js/app.js', 'public/js')
     /*.js('resources/assets/js/vendor.js', 'public/js')*/
+    .copy([
+        // 'node_modules/select2/dist/css/select2.min.css',
+        'node_modules/selectize/dist/css/selectize.css'
+    ], 'public/css/selectize.css')
     .sass('resources/assets/sass/vendor.scss', 'public/css')
     .sass('resources/assets/sass/custom.scss', 'public/css')
     .copy('node_modules/font-awesome/fonts/', 'public/fonts')

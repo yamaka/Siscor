@@ -5,10 +5,8 @@ namespace Siscor;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-
-class Direction extends Model
+class Position extends Model
 {
-
     use SoftDeletes;
 
     /**
@@ -22,8 +20,18 @@ class Direction extends Model
 
     protected $dates = ['deleted_at'];
 
-    public function units()
+    public function unit()
     {
-        return $this->hasMany('Siscor\Unit');
+        return $this->belongsTo('Siscor\Unit');
+    }
+
+    public function scopeUnitidIs($query, $id)
+    {
+        return $query->where('unit_id', $id);
+    }
+
+    public function scopeDirectionidIs($query, $id)
+    {
+        return $query->where('direction_id', $id);
     }
 }

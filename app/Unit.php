@@ -19,4 +19,15 @@ class Unit extends Model
     ];
 
     protected $dates = ['deleted_at'];
+
+    public function direction()
+    {
+        return $this->belongsTo('Siscor\Direction');
+    }
+
+    public function positions()
+    {
+        return $this->hasMany('Siscor\Position');
+    }
+
 }

@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'username','email', 'password',
+        'name', 'last_name', 'username','email', 'password',
     ];
 
     /**
@@ -38,4 +38,15 @@ class User extends Authenticatable
         }
         return !! $role->intersect($this->roles)->count();
     }
+
+    public function getFullName()
+    {
+        return $this->name . ' ' . $this->last_name;
+    }
+
+    public function position()
+    {
+        return $this->belongsTo('Siscor\Position');
+    }
+
 }

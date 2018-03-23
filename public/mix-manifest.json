@@ -4,5 +4,6 @@
     "/css/custom.css": "/css/custom.css",
     "/css/app.css": "/css/app.css",
     "/js/custom.js": "/js/custom.js",
+    "/css/selectize.css": "/css/selectize.css",
     "/js/vendor.js": "/js/vendor.js"
 }

@@ -6,8 +6,10 @@
  */
 
 require('./bootstrap');
+require('./inspinia');
 
 window.Vue = require('vue');
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -16,6 +18,8 @@ window.Vue = require('vue');
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('direction-index', require('./components/direction/Index.vue'));
+Vue.component('roadmap-table', require('./components/RoadMap/Index.vue'))
 
 const app = new Vue({
     el: '#app'
