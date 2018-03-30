@@ -24,7 +24,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $users = User::select(['id', 'name', 'last_name', 'phone', 'username', 'email', 'status'])->get();
+            $users = User::select(['id', 'name', 'lastname', 'phone', 'username', 'email', 'status'])->get();
             return $this->getUserData($users);
         }
         return view('Users.index');

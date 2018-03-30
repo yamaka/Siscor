@@ -26,4 +26,9 @@ class Direction extends Model
     {
         return $this->hasMany('Siscor\Unit');
     }
+
+    public function positions()
+    {
+        return $this->hasMany('Siscor\Position');
+    }
 }

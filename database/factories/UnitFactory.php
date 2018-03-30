@@ -13,6 +13,6 @@ $factory->define(Siscor\Unit::class, function (Faker $faker) {
      return [
         'direction_id' => $faker->randomElement($aDirection),
         'name' => $faker->name,
-        'description' => $faker->paragraph
+        'description' => $faker->realText(90)
     ];
 });

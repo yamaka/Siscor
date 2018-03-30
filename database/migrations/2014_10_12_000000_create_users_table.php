@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->bigInteger('user_created_id')->default(1);
             $table->bigInteger('user_modified_id')->default(1);
             $table->string('name');
-            $table->string('last_name');
+            $table->string('lastname');
             $table->string('phone')->nullable();
             $table->string('username')->unique();
             $table->string('email')->unique();

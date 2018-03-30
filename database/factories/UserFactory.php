@@ -14,11 +14,20 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(Siscor\User::class, function (Faker $faker) {
+    $aPosition = [];
+    $position = Siscor\Position::get(['id']);
+
+    foreach ($position as $k => $v) {
+        $aPosition[] = $v->id; // añadimos el valor al array
+    }
+
     return [
         'name' => $faker->name,
+        'lastname' => $faker->lastName,
         'username' => $faker->unique()->username,
         'email' => $faker->unique()->safeEmail,
-        'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+        'password' => bcrypt('user123'), // secret
         'remember_token' => str_random(10),
+        'position_id' => $faker->randomElement($aPosition)
     ];
 });
