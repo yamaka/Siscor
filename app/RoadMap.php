@@ -14,8 +14,6 @@ class Roadmap extends Model
      *
      * @var array
      */
-
-
     protected $fillable = [
         'status', 'reason', 'description'
     ];
@@ -37,6 +35,19 @@ class Roadmap extends Model
         return $query->where('direction_id', $id);
     }
 
+    public function direction()
+    {
+        return $this->belongsTo('Siscor\Direction');
+    }
 
+    public function userCreated()
+    {
+        return $this->belongsTo('Siscor\Users');
+    }
+
+    public function userModified()
+    {
+        return $this->userCreated();
+    }
 
 }

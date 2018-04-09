@@ -19,7 +19,7 @@ $factory->define(Siscor\Roadmap::class, function (Faker $faker) {
     $direction_id = $user->position->direction->id;
     
     return [
-        'status' => $faker->randomElement(['finish' ,'process', 'observate', 'initialize']),
+        'status' => $faker->randomElement(['finalizado', 'proceso','observado','inicializado','rechazado']),
         'reason' => $faker->realText(40),
         'description' => $faker->realText(90),
         'direction_id' => $direction_id,

@@ -245,7 +245,7 @@
             "<'row'<'col-xs-12'<'col-xs-6'i><'col-xs-6'p>>>",
             processing: true,
             serverSide: true,
-            pageLength: 3,
+            pageLength: 4,
             autoWidth: false,
             ajax: {
                 url: '{!! route('get_roadmap') !!}',

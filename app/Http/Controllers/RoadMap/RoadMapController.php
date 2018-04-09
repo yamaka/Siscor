@@ -71,8 +71,10 @@ class RoadMapController extends Controller
         
         $user = Auth::user();
         $position = $user->Position;
-
+        $unit = $position->unit;
+        $direction = $position->direction;
         $roadmap = new RoadMap();
+
         
     }
 
