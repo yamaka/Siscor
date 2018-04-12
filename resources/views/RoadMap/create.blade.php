@@ -22,7 +22,7 @@
                 <div class="col-lg-7">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>1° Hoja de Ruta</h5>
+                            <h5>1° Hoja de Ruta *</h5>
                             <div class="ibox-tools">
                                 <a class="collapse-link">
                                     <i class="fa fa-chevron-up"></i>
@@ -36,11 +36,13 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <p>Datos Hoja de Ruta.</p>
-                                    <div class="form-group"><label>Razón:</label>
-                                        <input type="email" placeholder="razón" class="form-control">
+                                    <div class="form-group">
+                                        {{ Form::label('Razón:', null) }}
+                                        {{ Form::text('reason', '', ['class' => 'form-control', 'placeholder' => 'razón'])}}
                                     </div>
-                                    <div class="form-group"><label>Descripción:</label>
-                                        <textarea placeholder="descripción" class="form-control">
+                                    <div class="form-group">
+                                        {{ Form::label('Descripción:', null) }}
+                                        {{ Form::textarea('description', '', ['class' => 'form-control', 'placeholder' => 'descripción', 'rows' => 3, 'cols' => 40])}}
 									</textarea>
                                     </div>
                                 </div>
@@ -51,7 +53,7 @@
                 <div class="col-lg-5">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>2° Dirigido:</h5>
+                            <h5>2° Dirigido *</h5>
                             <div class="ibox-tools">
                                 <a class="collapse-link">
                                     <i class="fa fa-chevron-up"></i>
@@ -65,28 +67,21 @@
                             <div class="form-horizontal">
                                 <p>Derivar la hoja de ruta.</p>
                                 <div class="form-group">
-                                    <label class="col-lg-2 control-label">Dirección:</label>
+                                    {!! Form::label('Dirección:', 'Dirección', ['class' => 'col-lg-2 control-label']) !!}
                                     <div class="col-lg-10">
-                                        <select class="form-control">
-                                            <option value="">Dirección general</option>
-                                            <option value="">Direccion asuntos administrativos</option>
-                                        </select>
+                                    {!! Form::select('direction', $directions, '', ['class' => 'form-control']) !!}
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-lg-2 control-label">Unidad:</label>
+                                <div class="form-group">
+                                    {!! Form::label('Unidad:', 'Unidad', ['class' => 'col-lg-2 control-label']) !!}
                                     <div class="col-lg-10">
-                                        <select class="form-control">
-                                            <option value="">Unidad Recursos Humanos</option>
-                                            <option value="">Unidad De Contabilidad</option>
-                                        </select>
+                                    {!! Form::select('unit', $units, '', ['class' => 'form-control']) !!}
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-lg-2 control-label">Cargo:</label>
+                                 <div class="form-group">
+                                    {!! Form::label('Cargo:', 'Cargo', ['class' => 'col-lg-2 control-label']) !!}
                                     <div class="col-lg-10">
-                                        <select class="form-control">
-                                            <option value="">Jefe de Secretaria</option>
-                                            <option value="">Secretaria de Dirección</option>
-                                        </select>
+                                    {!! Form::select('position', $positions, '', ['class' => 'form-control']) !!}
                                     </div>
                                 </div>
                                 <div class="form-group"><label class="col-lg-2 control-label">Usuario:</label>
@@ -118,8 +113,14 @@
                         <div class="ibox-content">
                             <div class="form-horizontal">
                                 <div class="col-md-6">
-
-                                    <div class="form-group"><label class="col-lg-2 control-label">Accion:</label>
+                                     {{-- <div class="form-group">
+                                        {!! Form::label('Cargo:', 'Cargo', ['class' => 'col-lg-2 control-label']) !!}
+                                        <div class="col-lg-10">
+                                        {!! Form::select('position', $positions, '', ['class' => 'form-control']) !!}
+                                        </div>
+                                    </div> --}}
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label">Accion:</label>
                                         <div class="col-lg-10">
                                             <select class="form-control">
                                                 <option value="">Tomar precauciones</option>
@@ -130,7 +131,7 @@
 
                                 </div>
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-primary">Crear Hoja de Ruta</button>
+                                    {{ Form::submit('Crear Hoja de Ruta', array('class' => 'btn btn-primary')) }}
                                 </div>
                             </div>
 

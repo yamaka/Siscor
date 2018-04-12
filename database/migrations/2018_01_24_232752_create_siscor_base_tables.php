@@ -17,10 +17,10 @@ class CreateSiscorBaseTables extends Migration
         Schema::create('directions', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
             $table->bigInteger('direction_id')->unsigned()->nullable();
-            $table->bigInteger('user_created_id')->unsigned()->default(1);
-            $table->bigInteger('user_modified_id')->unsigned()->default(1);
             $table->string('name');
             $table->string('description');
+            $table->bigInteger('user_created_id')->unsigned()->default(1);
+            $table->bigInteger('user_modified_id')->unsigned()->default(1);
             $table->foreign('direction_id')->references('id')->on('directions');
             $table->foreign('user_created_id')->references('id')->on('users');
             $table->foreign('user_modified_id')->references('id')->on('users');
@@ -32,10 +32,10 @@ class CreateSiscorBaseTables extends Migration
         Schema::create('units', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
             $table->bigInteger('direction_id')->unsigned();
-            $table->bigInteger('user_created_id')->unsigned()->default(1);
-            $table->bigInteger('user_modified_id')->unsigned()->default(1);
             $table->string('name');
             $table->string('description');
+            $table->bigInteger('user_created_id')->unsigned()->default(1);
+            $table->bigInteger('user_modified_id')->unsigned()->default(1);
             $table->foreign('direction_id')->references('id')->on('directions');
             $table->foreign('user_created_id')->references('id')->on('users');
             $table->foreign('user_modified_id')->references('id')->on('users');
@@ -47,12 +47,12 @@ class CreateSiscorBaseTables extends Migration
             $table->bigIncrements('id')->unsigned();
             $table->bigInteger('direction_id')->unsigned();
             $table->bigInteger('unit_id')->unsigned()->nullable();
-            $table->bigInteger('user_created_id')->unsigned()->default(1);
-            $table->bigInteger('user_modified_id')->unsigned()->default(1);
             $table->string('name');
             $table->string('description');
             $table->foreign('unit_id')->references('id')->on('units');
             $table->foreign('direction_id')->references('id')->on('directions');
+            $table->bigInteger('user_created_id')->unsigned()->default(1);
+            $table->bigInteger('user_modified_id')->unsigned()->default(1);
             $table->foreign('user_created_id')->references('id')->on('users');
             $table->foreign('user_modified_id')->references('id')->on('users');
             $table->timestamps();
@@ -61,10 +61,10 @@ class CreateSiscorBaseTables extends Migration
 
         Schema::create('type_roadmaps', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
-            $table->bigInteger('user_created_id')->unsigned()->default(1);
-            $table->bigInteger('user_modified_id')->unsigned()->default(1);
             $table->string('name');
             $table->string('description');
+            $table->bigInteger('user_created_id')->unsigned()->default(1);
+            $table->bigInteger('user_modified_id')->unsigned()->default(1);
             $table->foreign('user_created_id')->references('id')->on('users');
             $table->foreign('user_modified_id')->references('id')->on('users');
             $table->timestamps();
@@ -73,11 +73,11 @@ class CreateSiscorBaseTables extends Migration
 
         Schema::create('actions', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
-            $table->bigInteger('user_created_id')->unsigned()->default(1);
-            $table->bigInteger('user_modified_id')->unsigned()->default(1);
             $table->string('name');
             $table->string('short_name')->nullable();
             $table->string('description')->nullable();
+            $table->bigInteger('user_created_id')->unsigned()->default(1);
+            $table->bigInteger('user_modified_id')->unsigned()->default(1);
             $table->foreign('user_created_id')->references('id')->on('users');
             $table->foreign('user_modified_id')->references('id')->on('users');
             $table->timestamps();
@@ -86,6 +86,7 @@ class CreateSiscorBaseTables extends Migration
 
         Schema::create('roadmaps', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
+            $table->BigInteger('roadmap_id')->unsigned()->nullable();
             $table->bigInteger('type_id')->unsigned()->nullable();
             $table->bigInteger('direction_id')->unsigned();
 //            $table->bigInteger('direction_created_id')->unsigned()->default(1);
@@ -94,9 +95,7 @@ class CreateSiscorBaseTables extends Migration
 //            $table->bigInteger('direction_current_id')->unsigned()->default(1);
 //            $table->bigInteger('unit_current_id')->unsigned()->nullable()->default(1);
 //            $table->bigInteger('position_current_id')->unsigned()->default(1);
-            $table->bigInteger('user_created_id')->unsigned()->default(1);
-            $table->bigInteger('user_modified_id')->unsigned()->default(1);
-            $table->enum('status', ['finalizado', 'proceso','observado','inicializado','rechazado']);
+            $table->enum('status', ['finalizado', 'proceso','observado','inicializado','rechazado'])->default('inicializado');
             $table->string('reason');
             $table->string('description');
 //            $table->foreign('direction_created_id')->references('id')->on('directions');
@@ -106,6 +105,8 @@ class CreateSiscorBaseTables extends Migration
 //            $table->foreign('unit_current_id')->references('id')->on('units');
 //            $table->foreign('position_current_id')->references('id')->on('positions');
             $table->BigInteger('code_direction')->unsigned()->nullable();
+            $table->bigInteger('user_created_id')->unsigned()->default(1);
+            $table->bigInteger('user_modified_id')->unsigned()->default(1);
             $table->foreign('direction_id')->references('id')->on('directions');
             $table->foreign('type_id')->references('id')->on('type_roadmaps'); //type of roadmap
             $table->foreign('user_created_id')->references('id')->on('users');
@@ -116,9 +117,8 @@ class CreateSiscorBaseTables extends Migration
 
         Schema::create('sequences', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
-            $table->bigInteger('action_id')->unsigned();
-            $table->bigInteger('user_created_id')->unsigned()->default(1);
-            $table->bigInteger('user_modified_id')->unsigned()->default(1);
+            $table->bigInteger('roadmap_id')->unsigned();
+             $table->bigInteger('action_id')->unsigned()->nullable();
 //            $table->bigInteger('remitter_id')->unsigned()->default(1);
 //            $table->bigInteger('receiver_id')->unsigned()->default(1);
 //            $table->bigInteger('remitter_direction_id')->unsigned()->default(1);
@@ -129,15 +129,16 @@ class CreateSiscorBaseTables extends Migration
 //            $table->bigInteger('receiver_unit_id')->unsigned()->default(1)->nullable();
 //            $table->bigInteger('receiver_position_id')->unsigned()->default(1);
             $table->bigInteger('receiver_user_id')->unsigned()->default(1);
-            $table->string('name');
-            $table->string('short_name');
-            $table->string('description');
             $table->boolean('derivated')->default(false);
+            $table->integer('order')->unsigned();
 //            $table->foreign('remitter_id')->references('id')->on('users');
 //            $table->foreign('receiver_id')->references('id')->on('users');
 //            $table->foreign('remitter_direction_id')->references('id')->on('directions');
 //            $table->foreign('remitter_unit_id')->references('id')->on('units');
 //            $table->foreign('remitter_position_id')->references('id')->on('positions');
+            $table->bigInteger('user_created_id')->unsigned()->default(1);
+            $table->bigInteger('user_modified_id')->unsigned()->default(1);
+            $table->foreign('roadmap_id')->references('id')->on('roadmaps');
             $table->foreign('remitter_user_id')->references('id')->on('users');
 //            $table->foreign('receiver_direction_id')->references('id')->on('directions');
 //            $table->foreign('receiver_unit_id')->references('id')->on('units');
@@ -150,14 +151,15 @@ class CreateSiscorBaseTables extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('roadmap_sequence', function (Blueprint $table) {
-            $table->bigIncrements('id')->unsigned();
-            $table->bigInteger('roadmap_id')->unsigned();
-            $table->bigInteger('sequence_id')->unsigned();
-            $table->boolean('mirror')->default(false);
-            $table->foreign('roadmap_id')->references('id')->on('roadmaps');
-            $table->foreign('sequence_id')->references('id')->on('sequences');
-        });
+        // Schema::create('roadmap_sequence', function (Blueprint $table) {
+        //     $table->bigIncrements('id')->unsigned();
+        //     $table->bigInteger('roadmap_id')->unsigned();
+        //     $table->bigInteger('sequence_id')->unsigned();
+        //     $table->foreign('roadmap_id')->references('id')->on('roadmaps');
+        //     $table->foreign('sequence_id')->references('id')->on('sequences');
+        //     $table->timestamps();
+        //     $table->softDeletes();
+        // });
 
     }
     /**
@@ -167,7 +169,7 @@ class CreateSiscorBaseTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('secuence_roadmaps');
+        // Schema::dropIfExists('secuence_roadmaps');
         Schema::dropIfExists('roadmaps');
         Schema::dropIfExists('actions');
         Schema::dropIfExists('type_roadmaps');

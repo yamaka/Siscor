@@ -5,6 +5,9 @@ namespace Siscor\Http\Controllers\RoadMap;
 use Illuminate\Http\Request;
 use Siscor\Http\Controllers\Controller;
 use Siscor\Roadmap;
+use Siscor\Direction;
+use Siscor\Unit;
+use Siscor\Position;
 use Yajra\DataTables\DataTables;
 
 use Auth;
@@ -57,7 +60,16 @@ class RoadMapController extends Controller
      */
     public function create()
     {
-        return view('RoadMap.create');
+
+        $directions = Direction::pluck('name', 'id');
+        $units = Unit::pluck('name', 'id');
+        $positions = Position::pluck('name', 'id');
+
+        return view('RoadMap.create')->with([
+            'directions' => $directions,
+            'units' => $units,
+            'positions' => $positions
+        ]);
     }
 
     /**
@@ -70,12 +82,22 @@ class RoadMapController extends Controller
     {
         
         $user = Auth::user();
+
         $position = $user->Position;
         $unit = $position->unit;
         $direction = $position->direction;
-        $roadmap = new RoadMap();
+        $roadmap = new Roadmap();
+        $roadmap->direction_id = $direction->id;
+        $roadmap->user_created_id = $user->id;
+        $roadmap->user_modified_id = $user->id;
+        $roadmap->reason = $request->reason;
+        $roadmap->description = $request->description;
+        $roadmap->status = 'inicializado';
 
-        
+
+
+
+
     }
 
     /**

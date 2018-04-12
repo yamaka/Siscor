@@ -15,7 +15,7 @@ class Roadmap extends Model
      * @var array
      */
     protected $fillable = [
-        'status', 'reason', 'description'
+         'reason', 'description' , 'type_id'
     ];
 
     protected $dates = ['deleted_at'];
