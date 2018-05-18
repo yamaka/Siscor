@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-7">
             <h2>Hoja Ruta</h2>
@@ -14,8 +13,6 @@
             </ol>
         </div>
     </div>
-
-
     <div class="wrapper wrapper-content animated fadeInRight">
         {!! Form::open(['url' => 'RoadMap', 'method' => 'post']) !!}
             <div class="row">
@@ -120,12 +117,9 @@
                                         </div>
                                     </div> --}}
                                     <div class="form-group">
-                                        <label class="col-lg-2 control-label">Accion:</label>
+                                        {!! Form::label('Accion:', 'Cargo', ['class' => 'col-lg-2 control-label']) !!}
                                         <div class="col-lg-10">
-                                            <select class="form-control">
-                                                <option value="">Tomar precauciones</option>
-                                                <option value="">Para su consideracion</option>
-                                            </select>
+                                            {!! Form::select('action', $actions, '', ['class' => 'form-control']) !!}
                                         </div>
                                     </div>
 

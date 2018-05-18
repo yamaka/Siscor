@@ -9,6 +9,8 @@ require('./bootstrap');
 require('./inspinia');
 
 window.Vue = require('vue');
+/* require('./bootstrap-vue')
+Vue.use(BootstrapVue); */
 
 
 /**
@@ -19,7 +21,10 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('direction-index', require('./components/direction/Index.vue'));
-Vue.component('roadmap-table', require('./components/RoadMap/Index.vue'))
+Vue.component('roadmap-table', require('./components/RoadMap/Index.vue'));
+Vue.component('create-roadmap', require('./components/RoadMap/FormCreate.vue'));
+Vue.component('derivate-roadmap', require('./components/RoadMap/FormDerive.vue'));
+
 
 const app = new Vue({
     el: '#app'

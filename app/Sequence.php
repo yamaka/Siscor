@@ -4,7 +4,7 @@ namespace Siscor;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Secuense extends Model
+class Sequence extends Model
 {
     //
 
@@ -17,7 +17,7 @@ class Secuense extends Model
 
     public function roadmap()
     {
-    	eturn $this->belongsTo('Siscor\Roadmap');
+    	return $this->belongsTo('Siscor\Roadmap');
     }
 
    
