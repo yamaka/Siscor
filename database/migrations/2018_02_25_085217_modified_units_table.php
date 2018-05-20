@@ -16,6 +16,11 @@ class ModifiedUnitsTable extends Migration
         Schema::table('units', function (Blueprint $table) {
             $table->bigInteger('direction_id')->nullable()->change();
         });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->bigInteger('position_id')->nullable()->change();
+            $table->foreign('position_id')->references('id')->on('positions');
+        });
     }
 
     /**

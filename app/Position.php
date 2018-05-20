@@ -34,4 +34,10 @@ class Position extends Model
     {
         return $query->where('direction_id', $id);
     }
+
+    public function direction()
+    {
+        return $this->belongsTo('Siscor\Direction');
+    }
+
 }

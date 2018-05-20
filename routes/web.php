@@ -46,6 +46,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('RoadMap', 'RoadMap\RoadMapController');
     Route::get('roadmaps_get_all', 'RoadMap\RoadMapController@getAllRoadmaps');
     Route::get('get_roadmap', array('as'=>'get_roadmap', 'uses'=>'RoadMap\RoadMapController@Data'));
+    Route::post('derive', array('as'=>'derive', 'uses'=>'RoadMap\RoadMapController@derive'));
 
 });
 

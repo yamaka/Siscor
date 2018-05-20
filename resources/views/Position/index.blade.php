@@ -27,7 +27,7 @@
     <div id="filters" class="filters">
         <div class="row">
             <div class="col-md-12">
-                <div class="ibox float-e-margins no-drop ">
+                <div class="float-e-margins no-drop ">
                     <div class="ibox-title">
                         <h5>Filtros</h5>
                         <span class="label label-primary"></span>
