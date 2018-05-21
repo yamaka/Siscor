@@ -65,6 +65,34 @@ class RoadMapController extends Controller
         return response()->json(['roadmaps' => $roadmaps,'total'=>$total]);  
     }
 
+    public function Sequence_by_Roadmap(Request $request)
+    {
+        $sequences = Sequence::where('roadmap_id', $request['id'])->select('id','roadmap_id', 'action_id', 'remitter_user_id', 'receiver_user_id', 'derivated', 'order', 'user_created_id', 'created_at', 'updated_at')->orderBy('id','asc')->get();
+        return Datatables::of($sequences)
+        ->editColumn('direction', function($sequence){
+            $user = User::where('id', $sequence->remitter_user_id)->first();
+            $positionUser = Position::where('id', $user->position_id)->first();
+            $directionUser = Direction::where('id', $positionUser->direction_id)->first();
+            return ($directionUser->name);
+        })
+        ->editColumn('position', function($sequence) {
+            $user = User::where('id', $sequence->remitter_user_id)->first();
+            $positionUser = Position::where('id', $user->position_id)->first();
+            return ($positionUser->name);
+        })
+        ->editColumn('unit', function($sequence) {
+            $user = User::where('id', $sequence->remitter_user_id)->first();
+            $positionUser = Position::where('id', $user->position_id)->first();
+            $unitUser = Unit::where('id', $positionUser->unit_id)->first();
+            return ($unitUser->name);
+        })
+        ->editColumn('nameRoadmap', function($sequence) {
+            $roadmap = RoadMap::where('id', $sequence->roadmap_id)->first();
+            return ($roadmap->reason);
+        })
+        ->make(true);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

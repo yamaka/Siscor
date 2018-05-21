@@ -65,143 +65,28 @@
                       <div class="panel-body">
                         <div class="tab-content">                    
                           <div class="tab-pane active" id="tab-1">
-                              <table class="table table-striped">
+                              <table class="table table-striped" id="sequences-table">
                                 <thead>
-                                  <tr>       
-
+                                  <tr>  
+                                      <th>ID Hoja</th>
                                       <th>Orden</th>
                                       <th>Direccion</th>                          
                                       <th>Cargo</th>
                                       <th>Unidad</th>
                                       <th>Nombre</th>
                                       <th>Fecha Inicio</th>
-                                      <th>Fecha Fin</th>
-                                      <th>Comentario</th>
+                                      <th>Fecha Fin</th>                                      
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td>  
-                                      1
-                                    </td>
-                                    <td>  
-                                      economico
-                                    </td>                                   
-                                    <td>
-                                      scretaria
-                                    </td>
-                                    <td>
-                                      complemento ecomico
-                                    </td>
-                                    <td>
-                                      Create project in webapp
-                                    </td>
-                                    <td>
-                                      12.07.2014 10:10:1
-                                    </td>
-                                    <td>
-                                        14.07.2014 10:16:36
-                                    </td>
-                                    <td>
-                                    <p class="small">
-                                        Lorem Ipsum is that it has a more-or-less normal distribution
-                                    </p>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>  
-                                      2
-                                    </td> 
-                                    <td>  
-                                      economico
-                                    </td>                                   
-                                    <td>
-                                      scretaria
-                                    </td>
-                                    
-                                    <td>
-                                        Accepted
-                                    </td>
-                                    <td>
-                                        Various versions
-                                    </td>
-                                    <td>
-                                        12.07.2014 10:10:1
-                                    </td>
-                                    <td>
-                                        14.07.2014 10:16:36
-                                    </td>
-                                    <td>
-                                        <p class="small">
-                                          accident, sometimes on purpose (injected humour and the like).
-                                        </p>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>  
-                                      3
-                                    </td>
-                                    <td>  
-                                      economico
-                                    </td>                                   
-                                    <td>
-                                      scretaria
-                                    </td>                                    
-                                    <td>
-                                         Sent
-                                    </td>
-                                    <td>
-                                        There are many variations
-                                    </td>
-                                    <td>
-                                        12.07.2014 10:10:1
-                                    </td>
-                                    <td>
-                                        14.07.2014 10:16:36
-                                    </td>
-                                    <td>
-                                        <p class="small">
-                                           available, but the majority have suffered alteration in some 
-                                        </p>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>  
-                                      4
-                                    </td> 
-                                    <td>  
-                                      economico
-                                    </td>                                   
-                                    <td>
-                                      scretaria
-                                    </td>                                  
-                                    <td>
-                                        Reported</span>
-                                    </td>
-                                    <td>
-                                        Latin words
-                                    </td>
-                                    <td>
-                                        12.07.2014 10:10:1
-                                    </td>
-                                    <td>
-                                        14.07.2014 10:16:36
-                                    </td>
-                                    <td>
-                                        <p class="small">
-                                            Latin words, combined with a handful of models
-                                        </p>
-                                    </td>
-                                  </tr>
                                 </tbody>
                               </table>
-
                           </div>
                           <div class="tab-pane" id="tab-2">
                             <derivate-roadmap :Directions='{!! json_encode($directionsFormat) !!}' :Units='{!! json_encode($unitsFormat)!!}' :Positions='{!! json_encode($positionsFormat)!!}' :Actions='{!!json_encode($actionsFormat)!!}' :Users='{!!json_encode($usersFormat)!!}'
                               :Roadmap_id={!!json_encode($roadmap->id)!!}>
                             </derivate-roadmap>
-                          </div>                  
+                          </div>   
                         </div>
                       </div>
 
@@ -236,5 +121,32 @@
 </div>
 @endsection
 @section('scripts')
+    <script>
+        var sequencesTable = $('#sequences-table').DataTable({
+            "dom": '<"top">t<"bottom"p>',
+            processing: true,
+            serverSide: true,
+            pageLength: 8,
+            autoWidth: false,
+            order: [0, "asc"],
+            ajax: {
+                url: '{!! route('get_sequences_by_roadmap') !!}',
+                data: function (d) {
+                    d.id = {{ $roadmap->id }};
+                }
+            },
+            columns: [
+                { data: 'roadmap_id', bSortable: false },
+                { data: 'order', sClass: "text-center" },
+                { data: 'direction', bSortable:false },
+                { data: 'position', bSortable: false },
+                { data: 'unit', bSortable: false },
+                { data: 'nameRoadmap', bSortable: false },
+                { data: 'created_at', bSortable: false },
+                { data: 'updated_at', bSortable: false }                
+                // { data: 'action',name: 'action', orderable: false, searchable: false, bSortable: false, sClass: 'text-center'},
+            ]            
+        });
+    </script>
 
 @endsection

@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UnitsTableSeeder::class);
         $this->call(PositionsTableSeeder::class);
         $this->call(UsersWithPositionTableSeeder::class);
-        $this->call(RoadMapsTableSeeder::class);
-        $this->call(ActionsTableSeeder::class);
+        // $this->call(RoadMapsTableSeeder::class);
+        // $this->call(ActionsTableSeeder::class);
     }
 }
