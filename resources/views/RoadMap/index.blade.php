@@ -22,9 +22,7 @@
         <div class="row">
             <div class="col-sm-8">
                 <div class="ibox">
-                    <div class="ibox-content">
-                        {{--  <span class="text-muted small pull-right">última modificacion: <i class="fa fa-clock-o"></i> 2:10 pm - 12.06.2014</span>  --}}
-                        {{--  <h2>Hojas de ruta</h2>  --}}
+                    <div class="ibox-content">                        
                         <div class="input-group">
                             <input type="text" placeholder="Hoja de Ruta" class="input form-control">
                             <span class="input-group-btn">
